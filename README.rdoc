@@ -1,0 +1,7 @@
+= whitme
+
+Description goes here.
+
+== Copyright
+
+Copyright (c) 2009 Ruben Fonseca. See LICENSE for details.
