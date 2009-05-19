@@ -1,6 +1,30 @@
 = whitme
 
-Description goes here.
+whitme is a Ruby library for the URL shortener service whit.me
+
+The whit.me URL service is available at http://whit.me and it's API at
+http://www.whit.me/api/docs
+
+== Features
+
+* shortens and expands (multiple) URLs
+* 100% API features implemented
+* json (json-pure for JRuby) as the only external dependency
+* Ruby 1.8, 1.9 and JRuby compatible
+
+== Install
+
+  $ gem sources -a http://gems.github.com
+  $ sudo gem install rubenfonseca-whitme
+
+== Example
+
+  require 'whitme'
+  url = Whitme.short(:url => 'http://www.google.com', :note => 'foo')
+  puts url.hash # the shortened URL
+  
+  url = Whitme.short(:url => ['http://google.com', 'http://sapo.pt'])
+  puts url.hash # the shortened URL for multiple URLs
 
 == Copyright
 

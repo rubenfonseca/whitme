@@ -5,7 +5,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "whitme"
-    gem.summary = %Q{TODO}
+    gem.summary = %Q{whitme is a Ruby library for the URL shortener service whit.me}
     gem.email = "root@cpan.org"
     gem.homepage = "http://github.com/rubenfonseca/whitme"
     gem.authors = ["Ruben Fonseca"]
