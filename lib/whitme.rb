@@ -3,7 +3,8 @@
 
 require 'rubygems'
 require 'json'
-require 'open-uri'
+require 'net/http'
+require 'uri'
 require 'cgi'
 
 # == MalformedURLError
@@ -115,20 +116,27 @@ class Whitme
     url.note = options[:note]
     url.hash = options[:hash]
     
-    url.hash = open(url.to_short_url).read
-    json = JSON.parse(url.hash) rescue nil
-    if json
-      case json['error']
-      when 0
-        raise MalformedURLError
-      when 1
-        raise MalformedAliasError
-      else
-        raise ArgumentError
-      end
+    uri = URI.parse(url.to_short_url)
+    res = Net::HTTP.start(uri.host, uri.port) do |http|
+      http.get(uri.request_uri, { 'Accept' => 'application/json' })
     end
     
-    url
+    json = JSON.parse(res.body) rescue nil
+    if json
+      if json['error']
+        case json['error']
+        when 0
+          raise MalformedURLError
+        when 1
+          raise MalformedAliasError
+        else
+          raise ArgumentError
+        end
+      else
+        url.hash = json['url']
+        return url
+      end
+    end
   end
   
   # Expands an URL
@@ -152,7 +160,7 @@ class Whitme
     end
     url.hash = hash
     
-    json = JSON.parse(open(url.to_expand_url).read)
+    json = JSON.parse(Net::HTTP.get(URI.parse(url.to_expand_url)))
     url.url = json['urls']
     url.urlnote = json['urlnotes']
     url.note = json['note']
