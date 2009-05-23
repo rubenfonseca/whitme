@@ -9,7 +9,7 @@ begin
     gem.email = "root@cpan.org"
     gem.homepage = "http://github.com/rubenfonseca/whitme"
     gem.authors = ["Ruben Fonseca"]
-    gem.add_dependency('json-pure')
+    gem.add_dependency('json_pure')
 
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
